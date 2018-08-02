@@ -1,0 +1,57 @@
+section#results {
+  position: absolute;
+  z-index: 1; 
+  background-color: lightgray; 
+  overflow: auto;
+}
+
+section#results h2 {
+  font-size: 1.25rem;
+  margin-left: 2rem; 
+  color: gray;
+}
+
+section#results h2.score {
+  color: black; 
+}
+
+section#results ul {
+  list-style: none;
+  padding: 0; 
+  margin: 0; 
+}
+
+section#results ul li {
+  padding: 0 1.5rem; 
+}
+
+section#results ul li div {
+  position: relative;
+}
+
+section#results ul li div.answer-indicator-icon {
+  float: left;  
+  color: gray; 
+}
+
+section#results ul li div.answer-indicator-icon.plus {
+  font-size: 2.5rem;
+  position: absolute;
+  left: -0.5rem;
+  top: -0.5rem;
+}
+
+section#results ul li div.answer-indicator-icon.minus {
+  font-size: 2.5rem;
+  position: absolute;
+  left: -0.25rem;
+  top: -0.9rem;
+}
+
+section#results button.play-again {
+  border: none;
+  background-color: lightgray;
+  font-size: 1.5rem;
+  padding: 2rem;
+  margin-bottom: 2rem; 
+}

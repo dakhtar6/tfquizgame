@@ -1,0 +1,51 @@
+html,body {
+  height: 100%;
+}
+
+html {
+  background-color: lightgray; 	
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h1, h2, h3 {
+  margin: 1rem; 
+}
+
+li {
+  overflow: auto; 
+}
+
+.flex-column-center {
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-row-center {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.full-screen {
+  width: 100vw;
+  height: 100vh; 
+}
+
+.slide-left {
+  transition: transform 1s;
+  transform: translate3d(-100rem, 0, 0); 
+}
+
+.center-text {
+  text-align: center;
+}
+
+.hide {
+  display: none; 
+}
