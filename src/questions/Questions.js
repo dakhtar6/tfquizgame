@@ -32,10 +32,9 @@ export default class Questions extends Component {
       .then(
         (result) => {
           this.props.stashQuestionData(result); 
-          this.setState({isLoaded: true}); 
         },
         (error) => {
-          this.setState({isLoaded: true, error: error}); 
+          this.props.stashQuestionData(false, error); 
         }
       )
   }

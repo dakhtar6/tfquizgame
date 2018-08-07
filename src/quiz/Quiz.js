@@ -3,7 +3,7 @@ import Intro from '../intro/Intro';
 import Questions from '../questions/Questions';
 import Results from '../results/Results';
 
-class Quiz extends Component {
+export default class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,16 +30,24 @@ class Quiz extends Component {
     return textArea.value;
   }
 
-  stashQuestionData(result) {
-    let questions = result.results; 
-    questions.map((question, index, array) => {
-      question.question = this.decodeHtml(question.question);
-       return question.id = `${question.question}_${Math.random()}`
-    })
-    this.setState({
-      isLoaded: true,
-      questions: questions
-    });
+  stashQuestionData(result, error) {
+    if(result) {
+      let questions = result.results; 
+      questions.map((question, index, array) => {
+        question.question = this.decodeHtml(question.question);
+        return question.id = `${question.question}_${Math.random()}`
+      })
+      this.setState({
+        isLoaded: true,
+        questions: questions
+      });
+    }
+    else {
+      this.setState({
+        isLoaded: true,
+        error: error
+      });
+    }
   }
 
   resetGame() {
@@ -82,8 +90,6 @@ class Quiz extends Component {
             playAgain={this.state.playAgain} 
             isLoaded={this.state.isLoaded} 
             error={this.state.error} 
-            chosenAnswers={this.state.chosenAnswers}
-            correctlySelectedAnswers={this.state.correctlySelectedAnswers}
             resetGame={() => this.resetGame()}
             stashUserAnswer={(target, targetText) => this.stashUserAnswer(target, targetText)}
             stashQuestionData={(result) => this.stashQuestionData(result)} 
@@ -96,8 +102,5 @@ class Quiz extends Component {
             resetGame={() => this.resetGame()} />
         </main> 
       ); 
-    
   }   
 }
-
-export {Quiz}
