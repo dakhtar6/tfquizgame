@@ -18,4 +18,18 @@ it('renders 3 components without crashing', () => {
 });
 
 //QUIZ
+//loads itself
 //loads up 3 components and passes along props
+//loads up with a prop of totalQuestions
+
+/*
+
+INTRO
+------
+When you click the button, a class is added and we swipe left
+
+QUESTION
+---------
+Renders the same amount of questions as the totalNumQuestions Prop
+
+*/

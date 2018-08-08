@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
 import './Questions.css';
 
+function Question(props) {
+  return (
+    <li data-order={props.index} style={{zIndex: props.array.length - props.index}}>
+      <div className="flex-column-center center-text full-screen">
+        <h1 className="category">{props.question.category}</h1>
+        <h2 className="question">{props.question.question}</h2>
+        <h2 className="count">{props.index + 1} of {props.totalNumQuestions}</h2>   
+        <div className="button-container flex-row-center">
+          <button className="true">TRUE</button>
+          <button className="false">FALSE</button>
+        </div>
+      </div>
+    </li>
+  );
+}
+
 export default class Questions extends Component {
   handleClick(e) {
     if(e.target.tagName.toLowerCase() !== "button") {
@@ -17,7 +33,7 @@ export default class Questions extends Component {
       setTimeout(() => {
         li.classList.add('slide-left'); 
       }, 500)
-      if(parseInt(li.dataset.order, 10) === this.props.totalQuestions - 1) {
+      if(parseInt(li.dataset.order, 10) === this.props.totalNumQuestions - 1) {
         this.props.gradeAnswers(); 
         //Allow a cleaner layering and display of the results component
         document.getElementById('results').classList.remove('hide');
@@ -27,7 +43,7 @@ export default class Questions extends Component {
   }
 
   fetchQuestionData() {
-    fetch(`https://opentdb.com/api.php?amount=${this.props.totalQuestions}&difficulty=hard&type=boolean`)
+    fetch(`https://opentdb.com/api.php?amount=${this.props.totalNumQuestions}&difficulty=hard&type=boolean`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -56,17 +72,7 @@ export default class Questions extends Component {
       <section id="questions">
         <ul onClick={(e) => this.handleClick(e)}>
           {questions.map((question, index, array) => (
-            <li data-order={index} key={question.id} style={{zIndex: array.length - index}}>
-              <div className="flex-column-center center-text full-screen">
-                <h1 className="category">{question.category}</h1>
-                <h2 className="question">{question.question}</h2>
-                <h2 className="count">{index + 1} of {this.props.totalQuestions}</h2>   
-                <div className="button-container flex-row-center">
-                  <button className="true">TRUE</button>
-                  <button className="false">FALSE</button>
-                </div>
-              </div>
-            </li>
+            <Question question={question} key={question.id} index={index} array={array} totalNumQuestions={this.props.totalNumQuestions} /> 
           ))}
         </ul> 
       </section>

@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import './Results.css';
 
+function Result(props) {
+  return(
+    <li data-order={props.index} key={props.question.id}>
+      <div>
+        <div className="answer-indicator-icon minus">-</div>
+        <h2 className="question">{props.question.question}</h2>
+      </div>
+    </li>
+  );
+}
+
 export default class Results extends Component {
   handleClick(e) {
     this.props.resetGame(); 
@@ -10,15 +21,10 @@ export default class Results extends Component {
     return (
       <section id="results" className="hide">
         <div className="flex-column-center full-screen">
-          <h2 className="score center-text">You Scored <br></br> {this.props.correctlySelectedAnswers.length} of {this.props.totalQuestions}</h2>
+          <h2 className="score center-text">You Scored <br></br> {this.props.correctlySelectedAnswers.length} of {this.props.totalNumQuestions}</h2>
           <ul>
             {questions.map((question, index) => (
-              <li data-order={index} key={question.id}>
-                <div>
-                  <div className="answer-indicator-icon minus">-</div>
-                  <h2 className="question">{question.question}</h2>
-                </div>
-              </li>
+              <Result question={question} index={index} key={question.id} />
             ))}
           </ul> 
           <button className="play-again" onClick={(e) => this.handleClick(e)}>PLAY AGAIN?</button>

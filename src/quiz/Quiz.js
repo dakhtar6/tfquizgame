@@ -35,7 +35,8 @@ export default class Quiz extends Component {
       let questions = result.results; 
       questions.map((question, index, array) => {
         question.question = this.decodeHtml(question.question);
-        return question.id = `${question.question}_${Math.random()}`
+        question.id = `${question.question}_${Math.random()}`
+        return question; 
       })
       this.setState({
         isLoaded: true,
@@ -56,7 +57,6 @@ export default class Quiz extends Component {
   }
 
   renderAnswerIcons() {
-    console.log("FIRED"); 
     const icons = [].slice.apply(document.querySelectorAll('.answer-indicator-icon')); 
     const correctlySelectedAnswers = this.state.correctlySelectedAnswers; 
     correctlySelectedAnswers.forEach((answer) => {
@@ -86,9 +86,9 @@ export default class Quiz extends Component {
         <Intro 
           isLoaded={this.state.isLoaded} 
           error={this.state.error} 
-          totalQuestions={this.props.totalQuestions} /> 
+          totalNumQuestions={this.props.totalNumQuestions} /> 
         <Questions
-          totalQuestions={this.props.totalQuestions}
+          totalNumQuestions={this.props.totalNumQuestions}
           questions={this.state.questions} 
           playAgain={this.state.playAgain} 
           resetGame={() => this.resetGame()}
@@ -96,7 +96,7 @@ export default class Quiz extends Component {
           stashQuestionData={(result) => this.stashQuestionData(result)} 
           gradeAnswers={() => this.gradeAnswers()} />
         <Results
-          totalQuestions={this.props.totalQuestions}
+          totalNumQuestions={this.props.totalNumQuestions}
           questions={this.state.questions} 
           playAgain={this.state.playAgain}
           correctlySelectedAnswers={this.state.correctlySelectedAnswers}
