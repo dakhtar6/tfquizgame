@@ -56,6 +56,7 @@ export default class Quiz extends Component {
   }
 
   renderAnswerIcons() {
+    console.log("FIRED"); 
     const icons = [].slice.apply(document.querySelectorAll('.answer-indicator-icon')); 
     const correctlySelectedAnswers = this.state.correctlySelectedAnswers; 
     correctlySelectedAnswers.forEach((answer) => {
@@ -76,32 +77,31 @@ export default class Quiz extends Component {
         correctlySelectedAnswers.push(index); 
       } 
     });
-    this.setState({correctlySelectedAnswers: correctlySelectedAnswers}); 
-    this.renderAnswerIcons(); 
+    this.setState({correctlySelectedAnswers: correctlySelectedAnswers}, this.renderAnswerIcons); 
   }
 
   render() {
-      return (   
-        <main id="quiz">
-          <Intro 
-            isLoaded={this.state.isLoaded} 
-            error={this.state.error} 
-            totalQuestions={this.props.totalQuestions} /> 
-          <Questions
-            totalQuestions={this.props.totalQuestions}
-            questions={this.state.questions} 
-            playAgain={this.state.playAgain} 
-            resetGame={() => this.resetGame()}
-            stashUserAnswer={(target, targetText) => this.stashUserAnswer(target, targetText)}
-            stashQuestionData={(result) => this.stashQuestionData(result)} 
-            gradeAnswers={() => this.gradeAnswers()} />
-          <Results
-            totalQuestions={this.props.totalQuestions}
-            questions={this.state.questions} 
-            playAgain={this.state.playAgain}
-            correctlySelectedAnswers={this.state.correctlySelectedAnswers}
-            resetGame={() => this.resetGame()} />
-        </main> 
-      ); 
+    return (   
+      <main id="quiz">
+        <Intro 
+          isLoaded={this.state.isLoaded} 
+          error={this.state.error} 
+          totalQuestions={this.props.totalQuestions} /> 
+        <Questions
+          totalQuestions={this.props.totalQuestions}
+          questions={this.state.questions} 
+          playAgain={this.state.playAgain} 
+          resetGame={() => this.resetGame()}
+          stashUserAnswer={(target, targetText) => this.stashUserAnswer(target, targetText)}
+          stashQuestionData={(result) => this.stashQuestionData(result)} 
+          gradeAnswers={() => this.gradeAnswers()} />
+        <Results
+          totalQuestions={this.props.totalQuestions}
+          questions={this.state.questions} 
+          playAgain={this.state.playAgain}
+          correctlySelectedAnswers={this.state.correctlySelectedAnswers}
+          resetGame={() => this.resetGame()} />
+      </main> 
+    ); 
   }   
 }

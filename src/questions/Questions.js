@@ -18,9 +18,9 @@ export default class Questions extends Component {
         li.classList.add('slide-left'); 
       }, 500)
       if(parseInt(li.dataset.order, 10) === this.props.totalQuestions - 1) {
-        //a temporary hack to allow a cleaner layering and display of the results component
+        this.props.gradeAnswers(); 
+        //Allow a cleaner layering and display of the results component
         document.getElementById('results').classList.remove('hide');
-        setTimeout(this.props.gradeAnswers.bind(this), 250);
         document.getElementById('results').scrollTop = 0; 
       }
     }
