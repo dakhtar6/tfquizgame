@@ -83,13 +83,14 @@ export default class Quiz extends Component {
   render() {
       return (   
         <main id="quiz">
-          <Intro totalQuestions={this.props.totalQuestions} /> 
+          <Intro 
+            isLoaded={this.state.isLoaded} 
+            error={this.state.error} 
+            totalQuestions={this.props.totalQuestions} /> 
           <Questions
             totalQuestions={this.props.totalQuestions}
             questions={this.state.questions} 
             playAgain={this.state.playAgain} 
-            isLoaded={this.state.isLoaded} 
-            error={this.state.error} 
             resetGame={() => this.resetGame()}
             stashUserAnswer={(target, targetText) => this.stashUserAnswer(target, targetText)}
             stashQuestionData={(result) => this.stashQuestionData(result)} 

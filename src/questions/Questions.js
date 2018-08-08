@@ -52,33 +52,24 @@ export default class Questions extends Component {
 
   render() {
     const questions  = this.props.questions;
-    const {error, isLoaded} = this.props; 
-    if (error) {
-      return <div>Error: {error.message} <br></br> Please refresh and try again!</div>;
-    } 
-    else if (!isLoaded) {
-      return <div style={{margin:15}}>Loading...</div>;
-    } 
-    else {
-      return (
-        <section id="questions">
-          <ul onClick={(e) => this.handleClick(e)}>
-            {questions.map((question, index, array) => (
-              <li data-order={index} key={question.id} style={{zIndex: array.length - index}}>
-                <div className="flex-column-center center-text full-screen">
-                  <h1 className="category">{question.category}</h1>
-                  <h2 className="question">{question.question}</h2>
-                  <h2 className="count">{index + 1} of {this.props.totalQuestions}</h2>   
-                  <div className="button-container flex-row-center">
-                    <button className="true">TRUE</button>
-                    <button className="false">FALSE</button>
-                  </div>
+    return (
+      <section id="questions">
+        <ul onClick={(e) => this.handleClick(e)}>
+          {questions.map((question, index, array) => (
+            <li data-order={index} key={question.id} style={{zIndex: array.length - index}}>
+              <div className="flex-column-center center-text full-screen">
+                <h1 className="category">{question.category}</h1>
+                <h2 className="question">{question.question}</h2>
+                <h2 className="count">{index + 1} of {this.props.totalQuestions}</h2>   
+                <div className="button-container flex-row-center">
+                  <button className="true">TRUE</button>
+                  <button className="false">FALSE</button>
                 </div>
-              </li>
-            ))}
-          </ul> 
-        </section>
-      ); 
-    }
+              </div>
+            </li>
+          ))}
+        </ul> 
+      </section>
+    ); 
   }
 }

@@ -8,13 +8,3 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
-
-//QUIZ
-
-
-
-//INTRO
-
-//QUESTIONS
-
-//RESULTS
