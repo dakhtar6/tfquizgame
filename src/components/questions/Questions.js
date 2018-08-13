@@ -56,7 +56,7 @@ export default class Questions extends Component {
   }
 
   componentDidMount() {
-    this.fetchQuestionData(); 
+    this.fetchQuestionData();
   }
 
   componentWillReceiveProps(props) {

@@ -4,7 +4,6 @@ import './Intro.css';
 export default class Intro extends Component {
   handleClick(e) {
     e.target.closest('section').className = 'slide-left'; 
-    // e.target.closest('section').classList.add('slide-left'); 
   }
   render() {
     const {error, isLoaded} = this.props; 

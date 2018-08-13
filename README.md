@@ -1,8 +1,6 @@
 Hello!
 
-This is a simple true or false quiz game consisting of 10 questions and written in React, templated using create-react-app, and hopefully in the near future, covered by unit tests. The styling is simple, and the app is meant to be viewed on the latest browsers (makes use of viewport vh/vw sizing units). 
-
-Even though the directions stated not to use the most basic solution to build the demo, I didn't think it necessary to go out of the way to add complexity or dependence upon 3rd parties. Somethings I chose not to do were add a CSS preprocessor or use Bootstrap, since the style here was very minimal. I also chose not to use a fancy second tier solution like Next or Razzle, or use Redux, since I though core React to be more than powerful enough to handle the logic required. After all, overengineering is a real problem, and I didn't want to include extra complexity just for the sake of looking cool while really just being a tool. What I have here gets the job done, yet still leaves the door open for future growth. <br> 
+This is a simple true or false quiz game consisting of 10 questions and written in React, templated using create-react-app, and tested via jest and enzyme. The styling is simple, and the app is meant to be viewed on the latest browsers (makes use of viewport vh/vw sizing units). 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
