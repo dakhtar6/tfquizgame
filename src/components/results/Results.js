@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Results.css';
 
 function Result(props) {
@@ -32,4 +33,12 @@ export default class Results extends Component {
       </section>
     )
   }
+}
+
+Results.propTypes = {
+  totalNumQuestions: PropTypes.number.isRequired,
+  questions: PropTypes.array.isRequired,
+  playAgain: PropTypes.bool.isRequired,
+  correctlySelectedAnswers: PropTypes.array.isRequired, 
+  resetGame: PropTypes.func.isRequired
 }

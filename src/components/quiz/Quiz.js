@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Intro from '../intro/Intro';
 import Questions from '../questions/Questions';
 import Results from '../results/Results';
@@ -104,4 +105,8 @@ export default class Quiz extends Component {
       </main> 
     ); 
   }   
+}
+
+Quiz.propTypes = {
+  totalNumQuestions: PropTypes.number.isRequired
 }

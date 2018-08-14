@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios'; 
 import './Questions.css';
 
@@ -83,4 +84,14 @@ export default class Questions extends Component {
       </section>
     ); 
   }
+}
+
+Questions.propTypes = {
+  totalNumQuestions: PropTypes.number.isRequired,
+  questions: PropTypes.array.isRequired,
+  playAgain: PropTypes.bool.isRequired,
+  resetGame: PropTypes.func.isRequired,
+  stashUserAnswer: PropTypes.func.isRequired,
+  stashQuestionData: PropTypes.func.isRequired,
+  gradeAnswers: PropTypes.func.isRequired
 }

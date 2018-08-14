@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Intro.css';
 
 export default class Intro extends Component {
@@ -26,4 +27,13 @@ export default class Intro extends Component {
       ); 
     } 
   }
+}
+
+Intro.propTypes = {
+  totalNumQuestions: PropTypes.number.isRequired,
+  isLoaded: PropTypes.bool.isRequired, 
+  error: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 }
