@@ -32,7 +32,7 @@ export default class Quiz extends Component {
 
   stashQuestionData(result, error) {
     if(result) {
-      let questions = result.results; 
+      let questions = result
       questions.map((question, index, array) => {
         question.question = this.decodeHtml(question.question);
         question.id = `${question.question}_${Math.random()}`

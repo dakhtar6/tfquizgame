@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'; 
 import './Questions.css';
 
 function Question(props) {
@@ -16,6 +17,9 @@ function Question(props) {
     </li>
   );
 }
+
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 
 export default class Questions extends Component {
   handleClick(e) {
@@ -43,16 +47,13 @@ export default class Questions extends Component {
   }
 
   fetchQuestionData() {
-    fetch(`https://opentdb.com/api.php?amount=${this.props.totalNumQuestions}&difficulty=hard&type=boolean`)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.props.stashQuestionData(result); 
-        },
-        (error) => {
-          this.props.stashQuestionData(false, error); 
-        }
-      )
+    axios.get(`https://opentdb.com/api.php?amount=${this.props.totalNumQuestions}&difficulty=hard&type=boolean`, {cancelToken: source.token})
+      .then(res => {
+        this.props.stashQuestionData(res.data.results)
+      }) 
+      .catch(error => {
+        this.props.stashQuestionData(false, error)
+      })
   }
 
   componentDidMount() {
@@ -64,6 +65,10 @@ export default class Questions extends Component {
       this.fetchQuestionData(); 
       this.props.resetGame(); 
     }
+  }
+
+  componentWillUnmount() {
+    source.cancel('Operation canceled');
   }
 
   render() {
