@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios'; 
 import './Questions.css';
 
 function Question(props) {
@@ -18,9 +17,6 @@ function Question(props) {
     </li>
   );
 }
-
-const CancelToken = axios.CancelToken;
-const source = CancelToken.source();
 
 export default class Questions extends Component {
   handleClick(e) {
@@ -47,33 +43,8 @@ export default class Questions extends Component {
     }
   }
 
-  fetchQuestionData() {
-    axios.get(`https://opentdb.com/api.php?amount=${this.props.totalNumQuestions}&difficulty=hard&type=boolean`, {cancelToken: source.token})
-      .then(res => {
-        this.props.stashQuestionData(res.data.results)
-      }) 
-      .catch(error => {
-        this.props.stashQuestionData(false, error)
-      })
-  }
-
-  componentDidMount() {
-    this.fetchQuestionData();
-  }
-
-  componentWillReceiveProps(props) {
-    if(props.playAgain === true) {
-      this.fetchQuestionData(); 
-      this.props.resetGame(); 
-    }
-  }
-
-  componentWillUnmount() {
-    source.cancel('Operation canceled');
-  }
-
   render() {
-    const questions  = this.props.questions;
+    const {questions} = this.props;
     return (
       <section id="questions">
         <ul onClick={(e) => this.handleClick(e)}>
@@ -89,9 +60,6 @@ export default class Questions extends Component {
 Questions.propTypes = {
   totalNumQuestions: PropTypes.number.isRequired,
   questions: PropTypes.array.isRequired,
-  playAgain: PropTypes.bool.isRequired,
-  resetGame: PropTypes.func.isRequired,
-  stashUserAnswer: PropTypes.func.isRequired,
-  stashQuestionData: PropTypes.func.isRequired,
-  gradeAnswers: PropTypes.func.isRequired
+  stashUserAnswer: PropTypes.func,
+  gradeAnswers: PropTypes.func
 }

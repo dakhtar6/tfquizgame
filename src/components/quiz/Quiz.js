@@ -1,21 +1,34 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios'; 
 import Intro from '../intro/Intro';
 import Questions from '../questions/Questions';
 import Results from '../results/Results';
+
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
 
 export default class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: [], 
-      chosenAnswers: [],
       isLoaded: false, 
       error: null, 
-      playAgain: false, 
+      questions: [], 
+      chosenAnswers: [],
       correctlySelectedAnswers: []
     }
   };
+
+  fetchQuestionData() {
+    axios.get(`https://opentdb.com/api.php?amount=${this.props.totalNumQuestions}&difficulty=hard&type=boolean`, {cancelToken: source.token})
+      .then(res => {
+        this.stashQuestionData(res.data.results)
+      }) 
+      .catch(error => {
+        this.stashQuestionData(false, error)
+      })
+  }
 
   stashUserAnswer(li, buttonText) {
     //create a copy of the chosenAnswers array to ensure data immutability
@@ -36,7 +49,7 @@ export default class Quiz extends Component {
       let questions = result
       questions.map((question, index, array) => {
         question.question = this.decodeHtml(question.question);
-        question.id = `${question.question}_${Math.random()}`
+        question.id = `${question.question}_${Math.random()}`;
         return question; 
       })
       this.setState({
@@ -50,11 +63,6 @@ export default class Quiz extends Component {
         error: error
       });
     }
-  }
-
-  resetGame() {
-    this.setState({playAgain: !this.state.playAgain});
-    document.getElementById('results').classList.add('hide'); 
   }
 
   renderAnswerIcons() {
@@ -81,27 +89,31 @@ export default class Quiz extends Component {
     this.setState({correctlySelectedAnswers: correctlySelectedAnswers}, this.renderAnswerIcons); 
   }
 
+  componentDidMount() {
+    this.fetchQuestionData();
+  }
+
+  componentWillUnmount() {
+    source.cancel('Operation canceled');
+  }
+
   render() {
     return (   
       <main id="quiz">
         <Intro 
+          totalNumQuestions={this.props.totalNumQuestions}
           isLoaded={this.state.isLoaded} 
-          error={this.state.error} 
-          totalNumQuestions={this.props.totalNumQuestions} /> 
+          error={this.state.error} /> 
         <Questions
           totalNumQuestions={this.props.totalNumQuestions}
           questions={this.state.questions} 
-          playAgain={this.state.playAgain} 
-          resetGame={() => this.resetGame()}
           stashUserAnswer={(target, targetText) => this.stashUserAnswer(target, targetText)}
-          stashQuestionData={(result) => this.stashQuestionData(result)} 
           gradeAnswers={() => this.gradeAnswers()} />
         <Results
           totalNumQuestions={this.props.totalNumQuestions}
           questions={this.state.questions} 
-          playAgain={this.state.playAgain}
           correctlySelectedAnswers={this.state.correctlySelectedAnswers}
-          resetGame={() => this.resetGame()} />
+          fetchQuestionData={() => this.fetchQuestionData()} />
       </main> 
     ); 
   }   

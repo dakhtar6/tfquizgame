@@ -15,10 +15,10 @@ function Result(props) {
 
 export default class Results extends Component {
   handleClick(e) {
-    this.props.resetGame(); 
+    this.props.fetchQuestionData(); 
   }
   render() {
-    const questions = this.props.questions;
+    const {questions} = this.props;
     return (
       <section id="results" className="hide">
         <div className="flex-column-center full-screen">
@@ -38,7 +38,5 @@ export default class Results extends Component {
 Results.propTypes = {
   totalNumQuestions: PropTypes.number.isRequired,
   questions: PropTypes.array.isRequired,
-  playAgain: PropTypes.bool.isRequired,
   correctlySelectedAnswers: PropTypes.array.isRequired, 
-  resetGame: PropTypes.func.isRequired
 }
